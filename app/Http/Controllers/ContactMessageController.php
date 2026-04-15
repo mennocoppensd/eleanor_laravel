@@ -9,9 +9,20 @@ class ContactMessageController extends Controller
 {
     public function index()
     {
-        $messages = ContactMessage::query()
-            ->latest()
-            ->get();
+        try {
+            $messages = ContactMessage::query()
+                ->latest()
+                ->get();
+        } catch (\Throwable $e) {
+            report($e);
+
+            return view('pages.admin.messages', [
+                'messages' => collect(),
+                'loadError' => config('app.debug')
+                    ? $e->getMessage()
+                    : 'Could not load messages from the database. On production, run migrations against the same database as Vercel (php artisan migrate --force) and check DB_* / DATABASE_URL in Vercel Environment Variables.',
+            ]);
+        }
 
         return view('pages.admin.messages', [
             'messages' => $messages,

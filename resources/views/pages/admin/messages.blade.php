@@ -5,9 +5,13 @@
         <h1>Contact messages</h1>
         <p>Overview of all messages sent through the contact form.</p>
 
-        @if($messages->isEmpty())
-            <p class="empty-state">No messages yet. Submit the contact form to see entries here.</p>
-        @else
+        @isset($loadError)
+            <div class="alert alert-error">
+                {{ $loadError }}
+            </div>
+        @endisset
+
+        @if($messages->isNotEmpty())
             <div class="table-wrap">
                 <table>
                     <thead>
@@ -34,6 +38,8 @@
                     </tbody>
                 </table>
             </div>
+        @elseif(! isset($loadError))
+            <p class="empty-state">No messages yet. Submit the contact form to see entries here.</p>
         @endif
     </section>
 @endsection
