@@ -1,4 +1,7 @@
 {
+  "installCommand": "composer install --no-interaction --prefer-dist --optimize-autoloader --no-dev && npm install",
+  "buildCommand": "npm run build",
+  "outputDirectory": "public",
   "functions": {
     "api/index.php": {
       "runtime": "vercel-php@0.7.3"
