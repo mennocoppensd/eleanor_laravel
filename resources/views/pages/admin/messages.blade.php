@@ -11,7 +11,7 @@
             </div>
         @endisset
 
-        @if($messages->isNotEmpty())
+        @if(isset($rows) && $rows->isNotEmpty())
             <div class="table-wrap">
                 <table>
                     <thead>
@@ -25,14 +25,14 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($messages as $message)
+                        @foreach($rows as $row)
                             <tr>
-                                <td>{{ $message->created_at?->format('Y-m-d H:i') }}</td>
-                                <td>{{ $message->name }}</td>
-                                <td><a href="mailto:{{ $message->email }}">{{ $message->email }}</a></td>
-                                <td>{{ $message->company ?: '-' }}</td>
-                                <td>{{ $message->subject }}</td>
-                                <td>{{ $message->message }}</td>
+                                <td>{{ $row['created_at'] }}</td>
+                                <td>{{ $row['name'] }}</td>
+                                <td><a href="mailto:{{ $row['email'] }}">{{ $row['email'] }}</a></td>
+                                <td>{{ $row['company'] !== '' ? $row['company'] : '-' }}</td>
+                                <td>{{ $row['subject'] }}</td>
+                                <td>{{ $row['message'] }}</td>
                             </tr>
                         @endforeach
                     </tbody>
